@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Regisztárció</title>
+
+  <style th:replace="/Shared/cssInclude"></style>
+</head>
+<body>
+
+<script th:replace="/Shared/jsInclude"></script>
+
+<header><nav th:insert="/Shared/navbar :: header"></nav></header>
+<div id="content">
+  <h1> Regisztáció </h1>
+  <form action="#" th:action="@{login}" th:object="${user}" method="post" >
+    <input class="form-control" type="text" th:field="*{uname}" placeholder="Felhasználónév"><br>
+    <input class="form-control" type="password" th:field="*{pass}" placeholder="Jelszó"><br>
+    <input class="form-control" type="submit" value="Belépés!"><br>
+  </form>
+
+
+
+</div>
+</body>
+</html>

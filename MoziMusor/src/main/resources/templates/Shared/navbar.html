@@ -1,4 +1,4 @@
-<nav th:fragment="header" class="navbar navbar-expand-lg bg-light">
+<nav th:fragment="header" class="navbar navbar-expand-lg bg-light" xmlns:th="http://www.w3.org/1999/xhtml">
   <div class="container-fluid">
 
     <a class="navbar-brand" href="/"><img th:src="@{/IMGs/film-solid.svg}" width="30" height="30" alt=""> Mozi műsor</a>
@@ -7,6 +7,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <button class="btn btn-lite" th:if="${CurrentUser}" th:text="${CurrentUser.getName()}">
+
+        </button>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
@@ -28,10 +31,9 @@
           <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <a href="/login" th:if="!${CurrentUser}" ><button type="button" class="btn btn-primary">Login</button></a>
+      <a href="/logout" th:if="${CurrentUser}" ><button type="button" class="btn btn-primary">Logout</button></a>
+      <a href="/signup"  th:if="!${CurrentUser}"><button type="button" class="btn btn-secondary">Sign Up</button></a>
     </div>
   </div>
 </nav>
