@@ -8,10 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <button class="btn btn-lite" th:if="${CurrentUser}" th:text="${CurrentUser.getName()}">
-
         </button>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/contact">Üzenet</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>

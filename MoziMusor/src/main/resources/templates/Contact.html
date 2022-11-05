@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="">
+<head>
+  <meta charset="UTF-8">
+  <title>Rólunk</title>
+
+  <style th:replace="/Shared/cssInclude"></style>
+</head>
+<body>
+
+<script th:replace="/Shared/jsInclude"></script>
+
+<header><nav th:insert="/Shared/navbar :: header"></nav></header>
+<div id="content">
+  <h1> Kontakt </h1>
+  <p class="display-6">
+  <form action="#" th:action="@{contact}" th:object="${contactor}" method="post" >
+    Üzenet:<input class="form-control" type="text" th:field="*{message}" placeholder="Üzenet"><br>
+    <input class="form-control" type="submit" value="Küldés"><br>
+  </form>
+  </p>
+
+  <img class="rounded mx-auto d-block" th:src="@{/IMGs/moziterem.jpg}">
+
+</div>
+</body>
+</html>

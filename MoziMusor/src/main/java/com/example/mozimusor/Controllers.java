@@ -17,6 +17,9 @@ public class Controllers {
         return "AboutUsPage";
 
     }
+
+
+
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("CurrentUser",mainUser);
@@ -56,6 +59,25 @@ public class Controllers {
         return "redirect:/";
 
     }
+
+    @GetMapping("/contact")
+    public String Contact(Model model) {
+        model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("contactor",new Message());
+        return "Contact";
+
+    }
+
+
+
+    @PostMapping("/contact")
+    public String sendmessage(@ModelAttribute Message mes, Model model){
+        model.addAttribute("CurrentUser",mainUser);
+        //adatb
+        model.addAttribute("contactor",mes);
+        return "redirect:/contact";
+    }
+
 
 
 
