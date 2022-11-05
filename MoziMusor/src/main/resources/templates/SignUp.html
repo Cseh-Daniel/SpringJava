@@ -2,7 +2,7 @@
 <html lang="hu" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Bejelentkezés</title>
+  <title>Regisztárció</title>
 
   <style th:replace="/Shared/cssInclude"></style>
 </head>
@@ -12,11 +12,12 @@
 
 <header><nav th:insert="/Shared/navbar :: header"></nav></header>
 <div id="content">
-  <h1> Bejelentkezés </h1>
-  <form action="#" th:action="@{login}" th:object="${user}" method="post" >
-    <input class="form-control" type="text" th:field="*{name}" placeholder="Felhasználónév"><br>
+  <h1> Regisztáció </h1>
+  <form action="#" th:action="@{signup}" th:object="${newuser}" method="post" >
+    <input  class="form-control" type="email" th:field="*{email}" placeholder="Email"><br>
+    <input  class="form-control" type="text" th:field="*{name}" placeholder="Felhasználónév"><br>
     <input class="form-control" type="password" th:field="*{pass}" placeholder="Jelszó"><br>
-    <input class="form-control" type="submit" value="Bejelentkezés"><br>
+    <input class="form-control" type="submit" value="Regisztráció"><br>
   </form>
 
 

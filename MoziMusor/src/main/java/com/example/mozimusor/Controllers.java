@@ -21,7 +21,6 @@ public class Controllers {
     public String login(Model model) {
         model.addAttribute("CurrentUser",mainUser);
         model.addAttribute("user",new User());
-        System.out.println("@GetMapping(/login)");
         return "Login";
 
     }
@@ -33,6 +32,23 @@ public class Controllers {
         return "redirect:/";
     }
 
+    @GetMapping("/signup")
+    public String signup(Model model)
+    {
+        model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("newuser",new User());
+        return "SignUp";
+    }
+
+    @PostMapping("/signup")
+    public String postSignup(@ModelAttribute User user,Model model)
+    {
+        model.addAttribute("newuser",user);
+        //adatbazis
+        user=null;
+        return "redirect:/";
+    }
+
     @GetMapping("/logout")
     public String logout(Model model) {
         model.addAttribute("CurrentUser",mainUser);
@@ -40,6 +56,7 @@ public class Controllers {
         return "redirect:/";
 
     }
+
 
 
 }
