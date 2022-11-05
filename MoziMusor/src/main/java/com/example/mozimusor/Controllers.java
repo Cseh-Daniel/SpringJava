@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class Controllers {
     User mainUser;
+    static  String url="jdbc:mysql://localhost/mozimusor?user=root";
+    UserDAO uDao=new UserDAO(url);
+
     @GetMapping("/")
     public String aboutUs(Model model) {
         model.addAttribute("CurrentUser",mainUser);
@@ -23,6 +26,7 @@ public class Controllers {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("BadLogin","");
         model.addAttribute("user",new User());
         return "Login";
 
@@ -30,9 +34,28 @@ public class Controllers {
     @PostMapping("/login")
     public String LoginSubmit(@ModelAttribute User user, Model model){
 
+
         model.addAttribute("CurrentUser",user);
-        mainUser=user;
-        return "redirect:/";
+
+
+        if(uDao.checkPass(user.getPass(),user.getEmail())){
+            System.out.println("Sikeres bejelentkezés");
+            model.addAttribute("BadLogin",null);
+            mainUser=user;
+            mainUser.setName(uDao.getName(user.getEmail()));
+            System.out.println(mainUser.getName());
+            model.addAttribute("CurrentUser",mainUser);
+            return "redirect:/";
+        }else{
+            mainUser=null;
+
+            model.addAttribute("CurrentUser",mainUser);
+            //  <div class="alert alert-danger" role="alert" th:text="${BadLogin}">Rossz e-mail és jelszó páros!</div>
+            model.addAttribute("BadLogin","Rossz e-mail és jelszó páros!");
+            System.out.println("Bad Login");
+            return "login";
+        }
+
     }
 
     @GetMapping("/signup")
