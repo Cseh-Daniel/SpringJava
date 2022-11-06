@@ -63,16 +63,25 @@ public class Controllers {
     {
         model.addAttribute("CurrentUser",mainUser);
         model.addAttribute("newuser",new User());
+        model.addAttribute("serverInfo",null);
         return "SignUp";
     }
 
     @PostMapping("/signup")
     public String postSignup(@ModelAttribute User user,Model model)
     {
-        model.addAttribute("newuser",user);
+        mainUser=null;
+        //model.addAttribute("CurrentUser",mainUser);
+        //model.addAttribute("newuser",user);
         //adatbazis
+        //System.out.println(user.getEmail()+"\n"+user.getName());
+
+        model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("newuser",user);
+        String serverMessage=uDao.registerUser(user);
+        model.addAttribute("serverInfo",serverMessage);
         user=null;
-        return "redirect:/";
+        return "Signup";
     }
 
     @GetMapping("/logout")

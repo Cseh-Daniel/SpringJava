@@ -26,8 +26,7 @@ public class UserDAO {
             Statement Sta = Con.createStatement();
             ResultSet Res = Sta.executeQuery(sql);
             Res.next();
-            String qname=Res.getString("name");
-            if(qname==name){ return true;}else {return false;}
+            if(Res.getRow()>0){ return true;}else{return false;}
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -78,9 +77,9 @@ public class UserDAO {
     public String registerUser(User user){
         //INSERT INTO `user` (`id`, `name`, `email`, `password`, `roleid`) VALUES (NULL, 'Teszt', 'Teszt@teszt.com', 'pass', '2')
         String sql="INSERT INTO `user` (`id`, `name`, `email`, `password`, `roleid`) VALUES (NULL, '"+user.getName()+"', '"+user.getEmail()+"', '"+user.getPass()+"', '2')";
-        if(isNameSet(user.getName())){return "A név már foglalt!";}
-        if(isEmailSet(user.getEmail())){return "Az e-mail már foglalt!";}
 
+        if(isEmailSet(user.getEmail())){return "Az e-mail már foglalt!";}
+        if(isNameSet(user.getName())){return "A név már foglalt!";}
         try {
             Statement Sta = Con.createStatement();
             int Res = Sta.executeUpdate(sql);
