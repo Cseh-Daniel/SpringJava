@@ -131,4 +131,22 @@ public class UserDAO {
 
     }*/
 
+    public String getRole(User user){
+        //select role_name from roles inner join user on user.roleid=roles.id where name="Teszt";
+        if(user==null){return "Guest";}
+        String sql="select role_name from roles inner join user on user.roleid=roles.id where name='"+user.getName()+"'";
+
+        try {
+            Statement Sta= Con.createStatement();
+            ResultSet Res= Sta.executeQuery(sql);
+            Res.next();
+            return Res.getString("role_name");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 }

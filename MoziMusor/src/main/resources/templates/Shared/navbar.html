@@ -17,9 +17,13 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/contact">Üzenet Küldés</a>
         </li>
+        <th:block th:if="${CurrentUser}">
+          <th:block th:if="${CurrentUser.role=='Admin'}">
         <li class="nav-item">
-          <a class="nav-link" href="/messages">Üzenetek olvasása</a>
+          <a class="nav-link" href="/messages">Admin üzenetei</a>
         </li>
+          </th:block>
+        </th:block>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown

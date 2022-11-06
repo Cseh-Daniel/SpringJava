@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 @Controller
@@ -44,7 +46,8 @@ public class Controllers {
             model.addAttribute("BadLogin",null);
             mainUser=user;
             mainUser.setName(uDao.getName(user.getEmail()));
-            System.out.println(mainUser.getName());
+            mainUser.setRole(uDao.getRole(mainUser));
+            //System.out.println(mainUser.getName());
             model.addAttribute("CurrentUser",mainUser);
             return "redirect:/";
         }else{
@@ -123,8 +126,12 @@ public class Controllers {
 
     @GetMapping("/messages")
     public String readMessages(Model model){
+        ArrayList<Message> msgList=mDao.getAll();
+        Collections.reverse(msgList);
+        //System.out.println(uDao.getRole(mainUser));
+        if(!(uDao.getRole(mainUser).equals("Admin"))){return "redirect:/";}
         model.addAttribute("CurrentUser",mainUser);
-        model.addAttribute("Messages",mDao.getAll());
+        model.addAttribute("Messages",msgList);
         return "Messages";
     }
 
