@@ -3,16 +3,16 @@ package com.example.mozimusor;
 public class Message {
     private int id;
     private String name;
-    private String email;
+    //private String email;
     private String message;
 
     public Message() {
     }
 
-    public Message(int id, String name, String email, String message) {
+    public Message(int id, String name, String message) {
         this.id = id;
         this.name = name;
-        this.email = email;
+       // this.email = email;
         this.message = message;
     }
 
@@ -32,14 +32,15 @@ public class Message {
         this.name = name;
     }
 
-    public String getEmail() {
+  /*  public String getEmail() {
         return email;
     }
+*/
 
-    public void setEmail(String email) {
+    /*  public void setEmail(String email) {
         this.email = email;
     }
-
+*/
     public String getMessage() {
         return message;
     }

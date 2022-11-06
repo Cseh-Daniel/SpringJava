@@ -13,6 +13,7 @@ public class Controllers {
     User mainUser;
     static  String url="jdbc:mysql://localhost/mozimusor?user=root";
     UserDAO uDao=new UserDAO(url);
+    MessageDAO mDao=new MessageDAO(url);
 
     @GetMapping("/")
     public String aboutUs(Model model) {
@@ -95,6 +96,7 @@ public class Controllers {
     @GetMapping("/contact")
     public String Contact(Model model) {
         model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("serverInfo",null);
         model.addAttribute("contactor",new Message());
         return "Contact";
 
@@ -103,13 +105,28 @@ public class Controllers {
 
 
     @PostMapping("/contact")
-    public String sendmessage(@ModelAttribute Message mes, Model model){
+    public String sendMessage(@ModelAttribute Message mes, Model model){
         model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("contactor",new Message());
+
         //adatb
-        model.addAttribute("contactor",mes);
-        return "redirect:/contact";
+        //model.addAttribute("contactor",mes);
+        if(mainUser!=null){
+        mes.setName(mainUser.getName());
+        }
+
+        String serverMessage=mDao.sendMessage(mes);
+        model.addAttribute("serverInfo",serverMessage);
+        return "Contact";
     }
 
+
+    @GetMapping("/messages")
+    public String readMessages(Model model){
+        model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("Messages",mDao.getAll());
+        return "Messages";
+    }
 
 
 

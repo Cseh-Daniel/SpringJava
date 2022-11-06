@@ -2,7 +2,7 @@
 <html lang="hu" xmlns:th="">
 <head>
   <meta charset="UTF-8">
-  <title>Rólunk</title>
+  <title>Üzenj nekünk</title>
 
   <style th:replace="/Shared/cssInclude"></style>
 </head>
@@ -13,6 +13,8 @@
 <header><nav th:insert="/Shared/navbar :: header"></nav></header>
 <div id="content">
   <h1> Kontakt </h1>
+
+  <h2 th:text="${serverInfo}"></h2>
   <p class="display-6">
   <form action="#" th:action="@{contact}" th:object="${contactor}" method="post" >
     Üzenet:<input class="form-control" type="text" th:field="*{message}" placeholder="Üzenet"><br>
