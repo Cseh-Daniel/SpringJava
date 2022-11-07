@@ -29,6 +29,10 @@ public class MessageDAO {
             }else{
                 int id;
                 String name,msg;
+                id = Res.getInt("id");
+                name = Res.getString("name");
+                msg = Res.getString("text");
+                msgList.add(new Message(id, name, msg));
                 while(Res.next()) {
                     id = Res.getInt("id");
                     name = Res.getString("name");
