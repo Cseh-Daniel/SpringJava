@@ -17,6 +17,8 @@ public class Controllers {
     UserDAO uDao=new UserDAO(url);
     MessageDAO mDao=new MessageDAO(url);
 
+    DatabaseDAO dDao=new DatabaseDAO(url);
+
     @GetMapping("/")
     public String aboutUs(Model model) {
         model.addAttribute("CurrentUser",mainUser);
@@ -134,6 +136,16 @@ public class Controllers {
         model.addAttribute("Messages",msgList);
         return "Messages";
     }
+    @GetMapping("/database")
+    public String readDatabase(Model model){
+        ArrayList<Database> databasesList=dDao.getAll();
+
+        if(!(uDao.getRole(mainUser).equals("Admin") || uDao.getRole(mainUser).equals("User") )){return "redirect:/";}
+        model.addAttribute("CurrentUser",mainUser);
+        model.addAttribute("Databases",databasesList);
+        return "Database";
+    }
+
 
 
 

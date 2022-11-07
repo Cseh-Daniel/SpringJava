@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin üzenetek</title>
+
+  <style th:replace="/Shared/cssInclude"></style>
+</head>
+<body>
+
+<script th:replace="/Shared/jsInclude"></script>
+
+<header><nav th:insert="/Shared/navbar :: header"></nav></header>
+<div id="content">
+  <h1>Üzenetek</h1>
+
+
+
+  <table class="table table-dark">
+    <thead class="thead-light">
+    <tr>
+      <th>Filmcim</th>
+      <th>Származás</th>
+      <th>Műfaj</th>
+      <th>Mozi név</th>
+      <th>Cím</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Database :${Databases}">
+      <td th:text="${Database.filmcim}" />
+      <td th:text="${Database.szarmazas}" />
+      <td th:text="${Database.mufaj}" />
+      <td th:text="${Database.mozinev}" />
+      <td th:text="${Database.cim}" />
+
+
+
+    </tr>
+    </tbody>
+
+  </table>
+
+
+</div>
+</body>
+</html>
