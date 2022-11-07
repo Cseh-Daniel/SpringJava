@@ -34,8 +34,17 @@ public class DatabaseDAO {
             String mufaj=Res.getString("mufaj");
             String mozinev=Res.getString("mozinev");
             String cim=Res.getString("cim");
-
             data.add(new Database(filcim,szarmazas,mufaj,mozinev,cim));
+            while(Res.next()){
+                 filcim=Res.getString("filmcim");
+                 szarmazas=Res.getString("szarmazas");
+                 mufaj=Res.getString("mufaj");
+                 mozinev=Res.getString("mozinev");
+                 cim=Res.getString("cim");
+                data.add(new Database(filcim,szarmazas,mufaj,mozinev,cim));
+            }
+
+
 
             return data;
         } catch (SQLException e) {
