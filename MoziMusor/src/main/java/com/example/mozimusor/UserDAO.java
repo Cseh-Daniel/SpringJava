@@ -1,5 +1,7 @@
 package com.example.mozimusor;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -52,6 +54,17 @@ public class UserDAO {
         //String sql="select password from user where email='Teszt@teszt.com'";
 
         try {
+            MessageDigest pwHash = MessageDigest.getInstance("SHA-256");
+            pwHash.update(pw.getBytes());
+            pw=new String(pwHash.digest());
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        try {
             Statement Sta = Con.createStatement();
             ResultSet Res = Sta.executeQuery(sql);
             Res.next();
@@ -59,6 +72,8 @@ public class UserDAO {
             if(Res.getRow()==0){return false;}
             qpass=Res.getString("password");
             //System.out.println(qpass+"\n"+pw);
+
+
 
             if(qpass.equals(pw)){
                 System.out.println("Good Password");
@@ -75,8 +90,19 @@ public class UserDAO {
     }
 
     public String registerUser(User user){
+        String pw=user.getPass();
+        try {
+            MessageDigest pwHash= MessageDigest.getInstance("SHA-256");
+            pwHash.update(pw.getBytes());
+            pw=new String(pwHash.digest());
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
         //INSERT INTO `user` (`id`, `name`, `email`, `password`, `roleid`) VALUES (NULL, 'Teszt', 'Teszt@teszt.com', 'pass', '2')
-        String sql="INSERT INTO `user` (`id`, `name`, `email`, `password`, `roleid`) VALUES (NULL, '"+user.getName()+"', '"+user.getEmail()+"', '"+user.getPass()+"', '2')";
+        String sql="INSERT INTO `user` (`id`, `name`, `email`, `password`, `roleid`) VALUES (NULL, '"+user.getName()+"', '"+user.getEmail()+"', '"+pw+"', '2')";
+
 
         if(isEmailSet(user.getEmail())){return "Az e-mail már foglalt!";}
         if(isNameSet(user.getName())){return "A név már foglalt!";}
@@ -110,26 +136,6 @@ public class UserDAO {
         }
 
     }
-
-    /*
-    public ArrayList<User> getAll(){
-        String sql="select * from user";
-
-        ArrayList<User> lista;
-
-        try {
-            Statement Sta = Con.createStatement();
-            ResultSet Res = Sta.executeQuery(sql);
-            Res.next();
-            //id,name,email,password,roleid
-            Strin
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }*/
 
     public String getRole(User user){
         //select role_name from roles inner join user on user.roleid=roles.id where name="Teszt";
