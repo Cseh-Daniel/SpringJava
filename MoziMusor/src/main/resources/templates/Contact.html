@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <title>Üzenj nekünk</title>
 
-  <style th:replace="/Shared/cssInclude"></style>
+  <style th:replace="Shared/cssInclude"></style>
 </head>
 <body>
 
-<script th:replace="/Shared/jsInclude"></script>
+<script th:replace="Shared/jsInclude"></script>
 
-<header><nav th:insert="/Shared/navbar :: header"></nav></header>
+<header><nav th:insert="Shared/navbar :: header"></nav></header>
 <div id="content">
   <h1> Kontakt </h1>
 
@@ -22,7 +22,7 @@
   </form>
   </p>
 
-  <img class="rounded mx-auto d-block" th:src="@{/IMGs/moziterem.jpg}">
+  <img class="rounded mx-auto d-block" th:src="@{IMGs/moziterem.jpg}">
 
 </div>
 </body>

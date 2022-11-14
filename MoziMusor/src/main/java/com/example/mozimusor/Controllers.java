@@ -39,7 +39,7 @@ public class Controllers {
     public String LoginSubmit(@ModelAttribute User user, Model model){
 
 
-        model.addAttribute("CurrentUser",user);
+        //model.addAttribute("CurrentUser",user);
 
 
         if(uDao.checkPass(user.getPass(),user.getEmail())){
@@ -50,14 +50,14 @@ public class Controllers {
             mainUser.setRole(uDao.getRole(mainUser));
 
             model.addAttribute("CurrentUser",mainUser);
-            return "redirect:/";
+            return "AboutUsPage";
         }else{
             mainUser=null;
 
             model.addAttribute("CurrentUser",mainUser);
             model.addAttribute("BadLogin","Rossz e-mail és jelszó páros!");
             System.out.println("Bad Login");
-            return "login";
+            return "Login";
         }
 
     }
@@ -81,7 +81,7 @@ public class Controllers {
         String serverMessage=uDao.registerUser(user);
         model.addAttribute("serverInfo",serverMessage);
         user=null;
-        return "Signup";
+        return "SignUp";
     }
 
     @GetMapping("/logout")
@@ -147,6 +147,5 @@ public class Controllers {
 
     return movieDao.getMoviebyID(id);
     }
-
 
 }

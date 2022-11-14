@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Rólunk</title>
 
-    <style th:replace="/Shared/cssInclude"></style>
+    <style th:replace="Shared/cssInclude"></style>
 </head>
 <body>
 
-<script th:replace="/Shared/jsInclude"></script>
+<script th:replace="Shared/jsInclude"></script>
 
-<header><nav th:insert="/Shared/navbar :: header"></nav></header>
+<header><nav th:insert="Shared/navbar :: header"></nav></header>
 <div id="content">
     <h1> Rólunk </h1>
     <p class="display-6">
@@ -18,7 +18,7 @@
         <br>Így ha valaki igazán jól akar szórakozni a Mi mozink a legjobb hely rá!
     </p>
 
-    <img class="rounded mx-auto d-block" th:src="@{/IMGs/moziterem.jpg}">
+    <img class="rounded mx-auto d-block" th:src="@{IMGs/moziterem.jpg}">
 
 </div>
 </body>
