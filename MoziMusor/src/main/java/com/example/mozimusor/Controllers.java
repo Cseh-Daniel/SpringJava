@@ -12,11 +12,12 @@ import java.util.Collections;
 @Controller
 public class Controllers {
     User mainUser;
-    static  String url="jdbc:mysql://localhost/mozimusor?user=root";
-    UserDAO uDao=new UserDAO(url);
-    MessageDAO mDao=new MessageDAO(url);
+    static  String url="jdbc:mysql://localhost/mozimusor?user=Spring&password=pass";
+    //static  String url="jdbc:mysql://localhost/mozimusor?user=root";
 
-    DatabaseDAO dDao=new DatabaseDAO(url);
+    //UserDAO uDao=new UserDAO(url);
+    //MessageDAO mDao=new MessageDAO(url);
+    //DatabaseDAO dDao=new DatabaseDAO(url);
 
     @GetMapping("/")
     public String aboutUs(Model model) {
@@ -42,12 +43,17 @@ public class Controllers {
         //model.addAttribute("CurrentUser",user);
 
 
-        if(uDao.checkPass(user.getPass(),user.getEmail())){
+        //if(uDao.checkPass(user.getPass(),user.getEmail())){
+        if(new UserDAO(url).checkPass(user.getPass(),user.getEmail())){
+
             System.out.println("Sikeres bejelentkezés");
             model.addAttribute("BadLogin",null);
             mainUser=user;
-            mainUser.setName(uDao.getName(user.getEmail()));
-            mainUser.setRole(uDao.getRole(mainUser));
+
+            // mainUser.setName(uDao.getName(user.getEmail()));
+            // mainUser.setRole(uDao.getRole(mainUser));
+            mainUser.setName(new UserDAO(url).getName(user.getEmail()));
+            mainUser.setRole(new UserDAO(url).getRole(mainUser));
 
             model.addAttribute("CurrentUser",mainUser);
             return "AboutUsPage";
@@ -78,7 +84,10 @@ public class Controllers {
 
         model.addAttribute("CurrentUser",mainUser);
         model.addAttribute("newuser",user);
-        String serverMessage=uDao.registerUser(user);
+
+       //String serverMessage=uDao.registerUser(user);
+       String serverMessage=new UserDAO(url).registerUser(user);
+
         model.addAttribute("serverInfo",serverMessage);
         user=null;
         return "SignUp";
@@ -112,7 +121,8 @@ public class Controllers {
         mes.setName(mainUser.getName());
         }
 
-        String serverMessage=mDao.sendMessage(mes);
+        //String serverMessage=mDao.sendMessage(mes);
+        String serverMessage=new MessageDAO(url).sendMessage(mes);
         model.addAttribute("serverInfo",serverMessage);
         return "Contact";
     }
@@ -120,19 +130,23 @@ public class Controllers {
 
     @GetMapping("/messages")
     public String readMessages(Model model){
-        ArrayList<Message> msgList=mDao.getAll();
+        //ArrayList<Message> msgList=mDao.getAll();
+        ArrayList<Message> msgList=new MessageDAO(url).getAll();
         Collections.reverse(msgList);
 
-        if(!(uDao.getRole(mainUser).equals("Admin"))){return "redirect:/";}
+        //if(!(uDao.getRole(mainUser).equals("Admin"))){return "redirect:/";}
+        if(!(new UserDAO(url).getRole(mainUser).equals("Admin"))){return "redirect:/";}
         model.addAttribute("CurrentUser",mainUser);
         model.addAttribute("Messages",msgList);
         return "Messages";
     }
     @GetMapping("/database")
     public String readDatabase(Model model){
-        ArrayList<Database> databasesList=dDao.getAll();
+        //ArrayList<Database> databasesList=dDao.getAll();
+        ArrayList<Database> databasesList=new DatabaseDAO(url).getAll();
 
-        if(!(uDao.getRole(mainUser).equals("Admin") || uDao.getRole(mainUser).equals("User") )){return "redirect:/";}
+        //if(!(uDao.getRole(mainUser).equals("Admin") || uDao.getRole(mainUser).equals("User") )){return "redirect:/";}
+        if(!(new UserDAO(url).getRole(mainUser).equals("Admin") || new UserDAO(url).getRole(mainUser).equals("User") )){return "redirect:/";}
         model.addAttribute("CurrentUser",mainUser);
         model.addAttribute("Databases",databasesList);
         return "Database";
@@ -143,9 +157,9 @@ public class Controllers {
     @GetMapping("/api/{id}")
     @ResponseBody
     public String restAPI(@PathVariable int id){
-        MoviesDAO movieDao=new MoviesDAO(url);
-
-    return movieDao.getMoviebyID(id);
+      /* MoviesDAO movieDao=new MoviesDAO(url);
+    return movieDao.getMoviebyID(id);*/
+    return new MoviesDAO(url).getMoviebyID(id);
     }
 
 }
